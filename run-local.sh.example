@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Trader
+export PAIR="BTCUSDT"
+export STOP_DELTA=1
+export TP_DELTA=1
+
+# Binance
+export API_KEY=""
+export API_SECRET=""
+
+# RabbitMQ
+export AMQP_CONN_STRING=""
+export AMQP_QUEUE=""
+
+. env/bin/activate
+python app.py
