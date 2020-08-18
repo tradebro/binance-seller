@@ -6,6 +6,7 @@ import asyncio
 import uvloop
 import aio_pika
 import ujson
+import httpx
 
 
 API_KEY = environ.get('API_KEY')
@@ -15,6 +16,7 @@ AMQP_CONN_STRING = environ.get('AMQP_CONN_STRING')
 AMQP_QUEUE = environ.get('AMQP_QUEUE')
 STOP_DELTA = environ.get('STOP_DELTA')
 TP_DELTA = environ.get('TP_DELTA')
+SELL_NOTIFICATION_ENDPOINT = environ.get('SELL_NOTIFICATION_ENDPOINT')
 PRECISIONS = {
     'BTCUSDT': 6
 }
@@ -67,6 +69,11 @@ async def market_sell(buy_order):
     return sell_order
 
 
+async def send_sell_order(sell_order: dict):
+    httpx.post(url=SELL_NOTIFICATION_ENDPOINT,
+               data=sell_order)
+
+
 async def process_message(message: aio_pika.IncomingMessage):
     async with message.process(ignore_processed=True):
         message_body = ujson.loads(message.body)
@@ -84,6 +91,8 @@ async def process_message(message: aio_pika.IncomingMessage):
 
         sell_order = await market_sell(buy_order=message_body)
         logger.info(f'Successfully sold with order id {sell_order.get("orderId")}')
+
+        await send_sell_order(sell_order=sell_order)
 
 
 async def consume_queue():

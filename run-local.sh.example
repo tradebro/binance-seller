@@ -13,5 +13,8 @@ export API_SECRET=""
 export AMQP_CONN_STRING=""
 export AMQP_QUEUE=""
 
+# Notification
+export SELL_NOTIFICATION_ENDPOINT=""
+
 . env/bin/activate
 python app.py

@@ -13,3 +13,4 @@ The seller is selling by setting a fix delta for stop loss and take profit price
 | `PAIR` | Required string |
 | `TP_DELTA` | Required string, in quote pips |
 | `STOP_DELTA` | Required string, in quote pips |
+| `SELL_NOTIFICATION_ENDPOINT` | Required string |

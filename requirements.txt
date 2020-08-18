@@ -9,6 +9,9 @@ chardet==3.0.4
 constantly==15.1.0
 cryptography==3.0
 dateparser==0.7.6
+h11==0.9.0
+httpcore==0.10.1
+httpx==0.14.1
 hyperlink==20.0.1
 idna==2.10
 incremental==17.5.0
@@ -24,8 +27,10 @@ python-dateutil==2.8.1
 pytz==2020.1
 regex==2020.7.14
 requests==2.24.0
+rfc3986==1.4.0
 service-identity==18.1.0
 six==1.15.0
+sniffio==1.1.0
 Twisted==20.3.0
 txaio==20.4.1
 tzlocal==2.1
