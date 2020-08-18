@@ -71,7 +71,7 @@ async def market_sell(buy_order):
 
 async def send_sell_order(sell_order: dict):
     httpx.post(url=SELL_NOTIFICATION_ENDPOINT,
-               data=sell_order)
+               json=sell_order)
 
 
 async def process_message(message: aio_pika.IncomingMessage):
