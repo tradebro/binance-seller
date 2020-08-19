@@ -8,7 +8,6 @@ import aio_pika
 import ujson
 import httpx
 
-
 API_KEY = environ.get('API_KEY')
 API_SECRET = environ.get('API_SECRET')
 PAIR = environ.get('PAIR')
@@ -101,8 +100,8 @@ async def consume_queue():
     conn: aio_pika.Connection = await aio_pika.connect(url=AMQP_CONN_STRING)
 
     channel = await conn.channel()
-    exchange = channel.declare_exchange(name=AMQP_ORDERS_EXCHANGE,
-                                        type=aio_pika.ExchangeType.FANOUT)
+    exchange = await channel.declare_exchange(name=AMQP_ORDERS_EXCHANGE,
+                                              type=aio_pika.ExchangeType.FANOUT)
     queue = await channel.declare_queue(name=AMQP_QUEUE,
                                         auto_delete=True)
 
