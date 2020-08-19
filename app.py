@@ -14,6 +14,7 @@ API_SECRET = environ.get('API_SECRET')
 PAIR = environ.get('PAIR')
 AMQP_CONN_STRING = environ.get('AMQP_CONN_STRING')
 AMQP_QUEUE = environ.get('AMQP_QUEUE')
+AMQP_ORDERS_EXCHANGE = environ.get('AMQP_ORDERS_EXCHANGE')
 STOP_DELTA = environ.get('STOP_DELTA')
 TP_DELTA = environ.get('TP_DELTA')
 SELL_NOTIFICATION_ENDPOINT = environ.get('SELL_NOTIFICATION_ENDPOINT')
@@ -100,8 +101,12 @@ async def consume_queue():
     conn: aio_pika.Connection = await aio_pika.connect(url=AMQP_CONN_STRING)
 
     channel = await conn.channel()
+    exchange = channel.declare_exchange(name=AMQP_ORDERS_EXCHANGE,
+                                        type=aio_pika.ExchangeType.FANOUT)
     queue = await channel.declare_queue(name=AMQP_QUEUE,
                                         auto_delete=True)
+
+    await queue.bind(exchange)
     await queue.consume(process_message)
     return conn
 

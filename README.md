@@ -8,6 +8,7 @@ The seller is selling by setting a fix delta for stop loss and take profit price
 | :--- | :--- |
 | `AMQP_CONN_STRING` | Required string |
 | `AMQP_QUEUE` | Required string, also known as routing key |
+| `AMQP_ORDERS_EXCHANGE` | Required string |
 | `API_KEY` | Required string |
 | `API_SECRET` | Required string |
 | `PAIR` | Required string |
